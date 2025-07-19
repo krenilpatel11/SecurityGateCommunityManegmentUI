@@ -66,7 +66,7 @@ export const navLinks:any = [
 ];
 
 export function SideNav() {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   return (
     <Card 
@@ -114,18 +114,19 @@ export function SideNav() {
               <Tooltip key={link.to} delayDuration={300}>
                 <TooltipTrigger asChild>
                   <div>
-                    <SideNavItem 
-                      to={link.to} 
-                      icon={link.icon} 
-                      iconActive={link.iconActive} 
-                      label={link.label} 
-                      collapsed={true} 
-                    />
+                  <SideNavItem 
+                    to={link.to} 
+                    icon={link.icon} 
+                    iconActive={link.iconActive} 
+                    label={link.label} 
+                    collapsed={true} 
+                  />
                   </div>
                 </TooltipTrigger>
-                <TooltipContent side="right" className="bg-card border-border shadow-md">
+                <TooltipContent side="right" className="bg-card border-border shadow-md text-black">
                   {link.label}
                 </TooltipContent>
+
               </Tooltip>
             ) : (
               <SideNavItem 

@@ -6,9 +6,13 @@ import { Sheet, SheetContent, SheetTrigger } from "../sheet";
 import { navLinks } from "./SideNav";
 import { useState } from "react";
 import { SideNavItem } from "./SideNavItem";
+import { GoogleLoginButton } from "../GoogleLoginButton";
+import { useAuth } from "@/context/AuthContext";
 
 export function NavBar() {
   const [open, setOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
+
 
   return (
     <header className="flex items-center justify-between h-16 px-4 md:px-6 border-b border-border bg-card">
@@ -45,13 +49,20 @@ export function NavBar() {
         />
       </div>
       <div className="flex items-center gap-4">
-        <button className="relative p-2 rounded-full hover:bg-muted group">
-          <Bell className="w-5 h-5 fill-none group-hover:fill-foreground/20 transition-all" />
-          {/* Notification dot */}
-          <span className="absolute top-1 right-1 w-2 h-2 bg-danger rounded-full"></span>
-        </button>
+         {isAuthenticated && (
+          <button className="relative p-2 rounded-full hover:bg-muted group">
+            <Bell className="w-5 h-5 fill-none group-hover:fill-foreground/20 transition-all" />
+            {/* Notification dot */}
+            <span className="absolute top-1 right-1 w-2 h-2 bg-danger rounded-full"></span>
+          </button>
+        )}
         <ThemeToggle />
-        <UserMenu />
+        {/* Show Login button if logged out, else UserMenu */}
+        {isAuthenticated ? (
+          <UserMenu />
+        ) : (
+          <GoogleLoginButton />
+        )}
       </div>
     </header>
   );
